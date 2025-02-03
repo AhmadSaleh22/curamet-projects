@@ -1,7 +1,9 @@
-/node_modules
-/dist
-/coverage
-/build
-/dist
-/coverage
-/build
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Test coverage
+coverage/
