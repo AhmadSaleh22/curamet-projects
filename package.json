@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/AhmadSaleh22/curamet-projects#readme",
   "devDependencies": {
+    "@babel/preset-typescript": "^7.26.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.17.16",
