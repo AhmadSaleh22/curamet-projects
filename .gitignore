@@ -1,0 +1,13 @@
+# Node
+node_modules
+node_modules/
+**/node_modules
+**/node_modules/**
+.npm
+
+# Build outputs
+dist/
+build/
+
+# Test coverage
+coverage/ 
