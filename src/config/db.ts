@@ -1,18 +1,19 @@
-import mysql from 'mysql2';
+import { Sequelize } from "sequelize";
 
-const db = mysql.createConnection({
+const sequelize = new Sequelize({
   host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
+  username: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || 'password',
   database: process.env.DB_DATABASE || 'curamet',
+  dialect: 'mysql'
 });
 
-db.connect((err: any) => {
-  if (err !== null) {
+sequelize.authenticate()
+  .then(() => {
+    console.info('Successfully connected to MySQL database');
+  })
+  .catch((err: any) => {
     console.error('Error connecting to MySQL:', err);
-    return;
-  }
-  console.log('Successfully connected to MySQL database');
-});
+  });
 
-export default db;
+export default sequelize;
