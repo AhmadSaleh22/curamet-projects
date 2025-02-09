@@ -34,3 +34,5 @@ app.get('/', async (_, res) => {
     res.status(500).send(error);
   }
 });
+
+export { app };

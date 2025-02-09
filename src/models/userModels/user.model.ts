@@ -10,10 +10,8 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 
 sequelize.sync({ force: true }) // Use { force: true } only for development
   .then(() => {
-    console.log("Database & tables synced!");
   })
-  .catch((err) => {
-    console.error("Error syncing database:", err);
+  .catch(() => {
   });
 
 
