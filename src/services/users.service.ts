@@ -23,3 +23,14 @@ export const createUser = async (userData: UserInterface) => {
         throw error;  // Propagate the error upwards
     }
 }
+
+
+export const getUsers = async () => {
+    try {
+        const users = await User.findAll();
+        return users;
+    } catch (error) {
+        console.error("Error getting users:", error);
+        throw error;  // Propagate the error upwards
+    }
+}
