@@ -2,6 +2,8 @@ import express from 'express';
 // import users from './routers/users.routes.ts'; // Ensure correct import path
 import db from './config/db';
 import users from './routers/users.routes';
+import blocking from './routers/blocking/blocking.routes';
+import nonBlocking from './routers/blocking/nonBlocking.routes';
 
 const app = express();
 app.use(express.json());
@@ -19,6 +21,10 @@ db.authenticate()
   });
 
 app.use('/users', users); // Now `/users` correctly maps to `users.routes.js`
+
+app.use('/blocking', blocking)
+
+app.use('/non-blocking', nonBlocking)
 
 app.get('/', async (_, res) => {
   try {

@@ -12,7 +12,7 @@ sequelize.authenticate()
   .then(() => {
     console.info('Successfully connected to MySQL database');
   })
-  .catch((err: any) => {
+  .catch((err: unknown) => {
     console.error('Error connecting to MySQL:', err);
   });
 

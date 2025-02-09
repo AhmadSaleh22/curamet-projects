@@ -3,7 +3,7 @@ import { UserInterface } from "../models/interfaces";
 import { createUser } from "../services/users.service";
 
 export const createUserController = async (req: Request, res: Response): Promise<void> => {
-    console.log("Request body:", req.body);
+    // console.log("Request body:", req.body);
     try {
         const userData: UserInterface = req.body;
         const newUser = await createUser(userData);
@@ -12,18 +12,18 @@ export const createUserController = async (req: Request, res: Response): Promise
             message: "User created successfully",
             user: newUser
         });
-    } catch (error : any) {
-        console.error("Error creating user:", error);
+    } catch (error : unknown) {
+        // console.error("Error creating user:", error);
         
-        if (error.message === "User already exists") {
+        if (error instanceof Error && error.message === "User already exists") {
             res.status(403).send({
                 message: "User already exists"
             });
+        } else {
+            res.status(500).send({
+                message: "Internal Server Error",
+                error: "An unknown error occurred"
+            });
         }
-
-        res.status(500).send({
-            message: "Internal Server Error",
-            error: error.message
-        });
     }
 }
