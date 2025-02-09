@@ -14,4 +14,8 @@ sequelize.authenticate()
   .catch(() => {
   });
 
+export const closeDatabaseConnection = async () => {
+  await sequelize.close();
+};
+
 export default sequelize;

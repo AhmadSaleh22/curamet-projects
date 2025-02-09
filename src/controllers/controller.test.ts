@@ -2,12 +2,21 @@ import request from 'supertest';
 import express, { Application } from 'express';
 import { getUsersController } from './users.controller';
 import { getUsers } from '../services/users.service';
+import { closeDatabaseConnection } from '../config/db'; // Corrected import path
 
 jest.mock('../services/users.service');
 
-const app: Application = express();
-app.use(express.json());
-app.get('/users', getUsersController);
+let app: Application;
+
+beforeAll(() => {
+    app = express();
+    app.use(express.json());
+    app.get('/users', getUsersController);
+});
+
+afterAll(async () => {
+    await closeDatabaseConnection(); // Ensure the database connection is closed
+});
 
 describe('getUsersController', () => {
     it('should return 200 and users list when users are retrieved successfully', async () => {
