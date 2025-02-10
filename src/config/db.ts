@@ -10,6 +10,7 @@ const sequelize = new Sequelize({
 
 sequelize.authenticate()
   .then(() => {
+    
   })
   .catch(() => {
   });

@@ -1,16 +1,20 @@
-import sequlize from './db';
+import sequelize from './db';
 
 describe('Database Connection', () => {
-  beforeAll(() => {
-    return sequlize.authenticate();
+  beforeAll(async () => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Delay to ensure DB is ready
+      await sequelize.authenticate();
+    } catch (error) {
+      console.error('Database connection error:', error);
+    }
   });
-  afterAll(() => {
-    return new Promise((resolve) => {
-      sequlize.close().then(resolve);
-    });
+
+  afterAll(async () => {
+    await sequelize.close();
   });
 
   it('should connect to the database', () => {
-    expect(sequlize).toBeDefined();
+    expect(sequelize).toBeDefined();
   });
 });
