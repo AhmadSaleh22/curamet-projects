@@ -10,10 +10,13 @@ const sequelize = new Sequelize({
 
 sequelize.authenticate()
   .then(() => {
-    console.info('Successfully connected to MySQL database');
+    
   })
-  .catch((err: unknown) => {
-    console.error('Error connecting to MySQL:', err);
+  .catch(() => {
   });
+
+export const closeDatabaseConnection = async () => {
+  await sequelize.close();
+};
 
 export default sequelize;

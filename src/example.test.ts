@@ -1,5 +1,5 @@
 describe('Example Test Suite', () => {
   test('should pass a basic test', () => {
-    expect(2 + 2).toBe(4);
+    expect(4 + 6).toBe(10);
   });
 }); 
