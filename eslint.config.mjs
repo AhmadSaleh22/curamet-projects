@@ -1,24 +1,46 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
+import js from '@eslint/js';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import prettier from 'eslint-plugin-prettier';
+import globals from 'globals';
 
+import { FlatCompat } from '@eslint/eslintrc';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-/** @type {import('eslint').Linter.Config[]} */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
 export default [
-  { 
-    files: ["**/*.{js,mjs,cjs,ts}"],
-   },
+  js.configs.recommended,
   {
-    languageOptions: { 
+    files: ['**/*.ts', '**/*.tsx'],
+    ignores: ['**/*.test.ts', '**/*.spec.ts', '**/tests/**'], // Add this line to ignore test files
+    languageOptions: {
+      parser: tsParser,
       globals: globals.node,
-    }
-  },
-  pluginJs.configs.recommended,
-  {
+    },
+    plugins: {
+      '@typescript-eslint': tseslint,
+      prettier,
+    },
     rules: {
-      "no-undef": "error",
-      "no-unused-vars": "warn",
-    }
+      'no-undef': 'error',
+      'no-unused-vars': 'warn',
+      'consistent-return': 'error',
+      eqeqeq: 'error',
+      curly: 'error',
+      'arrow-body-style': ['error', 'as-needed'],
+      'no-var': 'error',
+      'prefer-const': 'error',
+      'max-lines-per-function': ['warn', { max: 50 }],
+      '@typescript-eslint/semi': ['error', 'always'],
+      'prettier/prettier': 'error',
+    },
   },
-  ...tseslint.configs.recommended,
+  ...compat.config(prettier.configs.recommended),
 ];

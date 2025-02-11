@@ -5,8 +5,8 @@ describe('Database Connection', () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000)); // Delay to ensure DB is ready
       await sequelize.authenticate();
-    } catch (error) {
-      console.error('Database connection error:', error);
+    } catch (error: unknown) {
+      console.error(error);
     }
   });
 
