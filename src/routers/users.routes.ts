@@ -3,6 +3,6 @@ import { createUserController, getUsersController } from '../controllers/users.c
 
 const router = Router();
 router.post('/', createUserController); // FIXED: Removed extra `/users`
-router.get('/users', getUsersController)
+router.get('/users', getUsersController);
 
 export default router;

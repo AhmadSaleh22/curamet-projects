@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { getNonBlockingController } from "../../controllers/blocking/nonBlocking.controller";
+import { Router } from 'express';
+import { getNonBlockingController } from '../../controllers/blocking/nonBlocking.controller';
 
 const router = Router();
 
