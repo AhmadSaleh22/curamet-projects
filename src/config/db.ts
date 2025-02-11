@@ -1,19 +1,17 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize({
   host: process.env.DB_HOST || 'localhost',
   username: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || 'password',
   database: process.env.DB_DATABASE || 'curamet',
-  dialect: 'mysql'
+  dialect: 'mysql',
 });
 
-sequelize.authenticate()
-  .then(() => {
-    
-  })
-  .catch(() => {
-  });
+sequelize
+  .authenticate()
+  .then(() => {})
+  .catch(() => {});
 
 export const closeDatabaseConnection = async () => {
   await sequelize.close();
