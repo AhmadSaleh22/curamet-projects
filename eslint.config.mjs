@@ -19,7 +19,7 @@ export default [
   js.configs.recommended,
   {
     files: ['**/*.ts', '**/*.tsx'],
-    ignores: ['**/*.test.ts', '**/*.spec.ts', '**/tests/**'], // Add this line to ignore test files
+    ignores: ['**/*.test.ts', '**/*.spec.ts', '**/tests/**', 'controller.test.ts'], // Add this line to ignore test files
     languageOptions: {
       parser: tsParser,
       globals: globals.node,
