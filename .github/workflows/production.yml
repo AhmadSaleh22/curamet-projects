@@ -1,0 +1,49 @@
+name: Pipeline - Production
+on:
+  push:
+    branches: [ main ] ## for hotfix => if applied
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  production:
+    if: github.ref == 'refs/heads/main' || github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
+          MYSQL_DATABASE: curamet_prod
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+      
+      - name: Install Dependencies
+        run: npm ci
+      
+      - name: Run Tests
+        run: npm test
+        env:
+          DB_HOST: localhost
+          DB_USER: root
+          DB_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
+          DB_DATABASE: curamet_prod
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Deploy to Production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: echo "Deploying to Production..."
+        env:
+          PROD_DEPLOY_KEY: ${{ secrets.PROD_DEPLOY_KEY }}
